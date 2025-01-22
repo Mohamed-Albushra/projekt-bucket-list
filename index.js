@@ -1,17 +1,11 @@
 let activities = [];
 let doneList = [];
+
 //get the activity input 
-
-console.log(activities);
-
 const newAct = document.getElementById('activityName');
-
 
 //get the chosen category 
 const actCat = document.getElementById('activityCategory');
-actCat.addEventListener('change', (event) => {
-    console.log(event.target.value);
-});
 
 const registerForm = document.getElementById('bucketForm');
 registerForm.addEventListener("submit", (event) => {
@@ -53,13 +47,11 @@ registerForm.addEventListener("submit", (event) => {
         if (!document.getElementById(actName)) {
     
             const listItem = document.createElement("li");
-            // listItem.innerHTML = `<h4 id="${actName}Act">${capitalizeFirstLetter(actName)}</h4>`;
             listItem.textContent = capitalizeFirstLetter(actName);
             if (listItem.textContent){
                 console.log("Activity is already added");
             };
             listItem.id = actName;
-            console.log(activity.activityList);
             // Add delete button
             const deleteButton = document.createElement("button");
             deleteButton.textContent = "X";
@@ -87,29 +79,19 @@ registerForm.addEventListener("submit", (event) => {
                     activityList: listItem.firstChild.textContent, 
                 };
                 doneList.push(doneActivity);
-                console.log(doneList);
-                
                 console.log(`Marked as done: ${doneActivity.activityList} in ${doneActivity.category}`);
                 const list = document.getElementById(`${activity.category}list`);
                 // Check if it's the only item in the list
                 if (list.children.length === 1) { 
                     document.getElementById(`${activity.category}Div`).remove();
-                    console.log(activity.activityList.indexOf(actName));
                     localStorage.setItem("doneList", JSON.stringify(doneList));
                 } else {
                     
                     let x = activity.activityList.indexOf(actName);
-                    console.log(activity.activityList.indexOf(actName));
-                    
                     activity.activityList.splice(x,1);
-                    console.log(activity.activityList);
-                    console.log(doneActivity);
-                    console.log(activities);
                     localStorage.setItem("doneList", JSON.stringify(doneList));
                     listItem.remove();
                 }
-                console.log(doneList);
-                
             });
 
             // Add Edit button
@@ -151,7 +133,8 @@ registerForm.addEventListener("submit", (event) => {
                         }
 
                         console.log(`Activity updated: ${actName} -> ${editedActName}`);
-                        actName = editedActName; // Update the variable
+                         // Update the variable
+                        actName = editedActName;
                     } else {
                         console.error("Edited activity name is empty!");
                     }
@@ -159,7 +142,6 @@ registerForm.addEventListener("submit", (event) => {
                     // Remove the edit form after saving
                     editForm.remove();
                 });
-    
             });
                        
             listItem.appendChild(doneButton);
@@ -196,4 +178,4 @@ function capitalizeFirstLetter(val) {
 //use the LS to load the information whin the page start
 //make planning earlier for coding stages 
 //use github more effective 
-//try to make the result looks like the UI that I like :)
+//try to make the result looks like the UI that I have :)
